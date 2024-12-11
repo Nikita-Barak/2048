@@ -1,19 +1,18 @@
-using Unity.Mathematics.Geometry;
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class RandomFigureSpawner : MonoBehaviour
 {
+    public GameObject figurePrefab; // Prefab for figures
+    public Sprite[] figureSprites; // Array of default sprites for random figures
+
+    [Header("Number settings")] public int maxNumberPow;
+
+    private GameObject currentFigure;
     public static RandomFigureSpawner Instance { get; private set; } // Singleton instance
 
-    public GameObject figurePrefab;   // Prefab for figures
-    public Sprite[] figureSprites;   // Array of default sprites for random figures
-    
-    private GameObject currentFigure;
-
-    [Header("Number settings")] 
-    public int maxNumberPow;
-    
-    public int currentNumberPow {get; private set;}
+    public int currentNumberPow { get; private set; }
 
     private void Awake()
     {
@@ -36,7 +35,10 @@ public class RandomFigureSpawner : MonoBehaviour
 
     public void SpawnRandomFigure()
     {
-        if (figurePrefab == null || figureSprites == null || figureSprites.Length == 0) return;
+        if (figurePrefab == null || figureSprites == null || figureSprites.Length == 0)
+        {
+            return;
+        }
 
         // Create a new GameObject from the prefab
         currentFigure = Instantiate(figurePrefab);
@@ -45,8 +47,9 @@ public class RandomFigureSpawner : MonoBehaviour
         SetRandomSprite(currentFigure);
 
         // Set its position randomly within the spawn area
-        Vector2 spawnPosition = new Vector2(
-            Random.Range(transform.position.x - transform.localScale.x / 2, transform.position.x + transform.localScale.x / 2),
+        var spawnPosition = new Vector2(
+            Random.Range(transform.position.x - transform.localScale.x / 2,
+                transform.position.x + transform.localScale.x / 2),
             transform.position.y
         );
         currentFigure.transform.position = spawnPosition;
@@ -54,7 +57,7 @@ public class RandomFigureSpawner : MonoBehaviour
 
     private void SetRandomSprite(GameObject figure)
     {
-        SpriteRenderer spriteRenderer = figure.GetComponent<SpriteRenderer>();
+        var spriteRenderer = figure.GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
         {
             Debug.LogWarning("Figure prefab is missing a SpriteRenderer component!");
@@ -62,18 +65,18 @@ public class RandomFigureSpawner : MonoBehaviour
         }
 
         // Assign a random sprite from the array
-        Sprite randomSprite = figureSprites[Random.Range(0, figureSprites.Length)];
+        var randomSprite = figureSprites[Random.Range(0, figureSprites.Length)];
         spriteRenderer.sprite = randomSprite;
 
         // Update the PolygonCollider2D to match the new sprite
-        PolygonCollider2D polygonCollider = figure.GetComponent<PolygonCollider2D>();
+        var polygonCollider = figure.GetComponent<PolygonCollider2D>();
         if (polygonCollider != null)
         {
             Destroy(polygonCollider); // Remove the old collider
             polygonCollider = figure.AddComponent<PolygonCollider2D>(); // Recreate it to auto-adjust to the new sprite
         }
-        
-        Rigidbody2D rb = figure.GetComponent<Rigidbody2D>();
+
+        var rb = figure.GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Static;
     }
 
@@ -85,7 +88,7 @@ public class RandomFigureSpawner : MonoBehaviour
 
     public void increasePow()
     {
-        if (currentNumberPow < maxNumberPow && currentNumberPow < System.Math.Sqrt(Score.instance.maxScore))
+        if (currentNumberPow < maxNumberPow && currentNumberPow < Math.Sqrt(Score.instance.maxScore))
         {
             currentNumberPow++;
         }

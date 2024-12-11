@@ -4,14 +4,14 @@ using UnityEngine.SceneManagement;
 public class LevelControl : MonoBehaviour
 {
     public static LevelControl instance;
-    
+
     [SerializeField] private int goalScore = 256;
     [SerializeField] public float leftBorder;
     [SerializeField] public float rightBorder;
     [SerializeField] public string nextLevel;
-    private int currentLevel = 1; 
+    private int currentLevel = 1;
 
-    
+
     private void Awake()
     {
         // Ensure there is only one instance of the spawner
@@ -24,8 +24,8 @@ public class LevelControl : MonoBehaviour
             Destroy(gameObject); // Destroy duplicate spawners
         }
     }
-    
-    void Update()
+
+    private void Update()
     {
         CheckLevelCompletion();
     }

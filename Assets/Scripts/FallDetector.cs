@@ -26,7 +26,7 @@ public class FallDetector : MonoBehaviour
     private bool IsOutOfCameraView()
     {
         // Convert the figure's position to viewport space
-        Vector3 viewportPosition = mainCamera.WorldToViewportPoint(transform.position);
+        var viewportPosition = mainCamera.WorldToViewportPoint(transform.position);
 
         // Check if the figure is outside the camera's view
         return viewportPosition.y < 0 || viewportPosition.x < 0 || viewportPosition.x > 1;
