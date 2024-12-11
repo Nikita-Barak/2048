@@ -27,7 +27,6 @@ public class Figure : MonoBehaviour
 
     private Rigidbody2D rb;
     private TextMeshPro tm;
-    
     private float xInput;
 
     public int number { get; private set; }
