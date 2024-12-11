@@ -136,13 +136,12 @@ public class Figure : MonoBehaviour
         // Weighted probabilities for lower powers
         var weights = new float[RandomFigureSpawner.Instance.currentNumberPow];
         float totalWeight = 0;
-        
         int BaseWeightAdjustment = 1;
 
         // Assign weights (higher for lower powers)
         for (var i = 0; i < weights.Length; i++)
         {
-            weights[i] = 1f / (i + BaseWeightAdjustment); 
+            weights[i] = 1f / (i + BaseWeightAdjustment);
             totalWeight += weights[i];
         }
 
