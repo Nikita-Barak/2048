@@ -7,19 +7,19 @@ using Random = UnityEngine.Random;
 
 public class Figure : MonoBehaviour
 {
-    [Header("Move settings")] [SerializeField]
-    private float moveSpeed = 10;
+    [Header("Move settings")]
+    [SerializeField] private float moveSpeed = 10;
 
     [SerializeField] private float rotationSpeed = 100f;
 
-    [Header("Scale Settings")] [SerializeField]
-    private float growSpeed = .1f;
+    [Header("Scale Settings")]
+    [SerializeField] private float growSpeed = .1f;
 
     [SerializeField] private float maxScale = 3f;
     [SerializeField] private float massSpeedScale = 0.5f;
 
-    [Header("Explotion Settings")] [SerializeField]
-    private float explosionRadius = 1f; // Radius of the explosion
+    [Header("Explotion Settings")]
+    [SerializeField] private float explosionRadius = 1f; // Radius of the explosion
 
     [SerializeField] private float explosionForce = 200f; // Max force applied to figures
     private Collider2D col;
@@ -27,8 +27,7 @@ public class Figure : MonoBehaviour
 
     private Rigidbody2D rb;
     private TextMeshPro tm;
-
-
+    
     private float xInput;
 
     public int number { get; private set; }
