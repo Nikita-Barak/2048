@@ -136,11 +136,13 @@ public class Figure : MonoBehaviour
         // Weighted probabilities for lower powers
         var weights = new float[RandomFigureSpawner.Instance.currentNumberPow];
         float totalWeight = 0;
+        
+        int BaseWeightAdjustment = 1;
 
         // Assign weights (higher for lower powers)
         for (var i = 0; i < weights.Length; i++)
         {
-            weights[i] = 1f / (i + 1); // Example: Inverse of the power index
+            weights[i] = 1f / (i + BaseWeightAdjustment); 
             totalWeight += weights[i];
         }
 
@@ -224,7 +226,7 @@ public class Figure : MonoBehaviour
             spriteRenderer.color = GetColorForNumber(number);
         }
 
-        if (number > 4)
+        if (number > 4) // if number is bigger then 4 we have colored figure then we must do white text to see on it better
         {
             tm.color = Color.white;
         }
